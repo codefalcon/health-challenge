@@ -1,0 +1,10 @@
+.loan {
+	display: flex;
+  border-bottom: 1px solid #aaa;
+  margin-bottom: 50px;
+  align-items: center;
+}
+
+.info {
+  flex-grow: 1;
+}
