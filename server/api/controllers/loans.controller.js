@@ -1,4 +1,6 @@
 import moment from 'moment';
+import Loan from '../../models/loan';
+import Transaction, {unhealthyList} from '../../models/transaction';
 
 /**
  * Get all Loans
@@ -83,4 +85,40 @@ export function getLoans(req, res) {
       },
     },
   ]);
+}
+
+/**
+ * Get all Loans from DB
+ * @param req
+ * @param res
+ * @returns void
+ */
+export async function getLoansFromDb(req, res) {
+  // This is just sample data. Please structure your code in the best way possible. Don't feel obliged to stick to this structure
+  var list = await unhealthyList();
+
+  console.log("loan controller")
+  console.log(list);
+
+  return res.send(list);
+  /* return res.send([
+    {
+      name: 'Nick Tong\'s Salad Tong Store',
+      currentHealth: 84,
+      health: {
+        dates: [
+        ],
+        values: [],
+      },
+    },
+    {
+      name: 'Paul\'s Pizzeria',
+      currentHealth: 23,
+      health: {
+        dates: [
+        ],
+        values: [],
+      },
+    },
+  ]);*/
 }

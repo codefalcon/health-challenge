@@ -9,4 +9,27 @@ const transactionSchema = new Schema({
   health: { type: 'Number', required: true },
 });
 
-export default mongoose.model('Transaction', transactionSchema);
+const Transaction = mongoose.model('Transaction', transactionSchema);
+
+export default Transaction
+
+export async function unhealthyList() {
+  var list = [];
+  try {
+      await Transaction.aggregate([
+        { $group: { _id: {loan_id: "$loan_id"},
+                    curr_week: {$max: "$seq_id"},
+                    curr_health: {$last: "$health"},
+                    health: {$push: "$health"}}},
+        { $sort: {"curr_health": 1}},
+        { $limit: 10}]).
+        then(function(res){
+        list = res;
+        });
+    }
+    catch(err) {
+      console.error(err);
+    }
+
+    return list;
+};

@@ -4,5 +4,6 @@ const router = new Router();
 
 // Get all Posts
 router.route('/loans').get(LoansController.getLoans);
+router.route('/loansdb').get(LoansController.getLoansFromDb);
 
 export default router;
