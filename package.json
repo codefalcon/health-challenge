@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Boilerplate project for building Isomorphic apps using React and Redux",
   "scripts": {
-    "seed-data": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/sail-health-test node_modules/.bin/nyc node --harmony-proxies node_modules/.bin/ava",
-    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/sail-health-test node_modules/.bin/nyc node --harmony-proxies node_modules/.bin/ava",
+    "seed-data": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/sail-health-test node_modules/.bin/nyc node --harmony node_modules/.bin/ava",
+    "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/sail-health-test node_modules/.bin/nyc node --harmony node_modules/.bin/ava",
     "watch:test": "npm run test -- --watch",
     "cover": "nyc npm run test",
     "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",

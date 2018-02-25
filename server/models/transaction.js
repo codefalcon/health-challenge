@@ -6,6 +6,7 @@ const transactionSchema = new Schema({
   created_at: { type: 'Date', required: true },
   type: { type: 'String', enum: ['REPAYMENT', 'REPAYMENT_DECLINED'], required: true },
   seq_id: { type: 'Number', required: true },
+  health: { type: 'Number', required: true },
 });
 
 export default mongoose.model('Transaction', transactionSchema);
