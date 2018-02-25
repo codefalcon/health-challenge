@@ -20,7 +20,7 @@ const chartOptions = {
 
 class LoansPage extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchData());
+    this.props.dispatch(fetchData(1));
   }
 
   getChartInfo(health) {
@@ -47,8 +47,8 @@ class LoansPage extends Component {
   render() {
     const { loans } = this.props;
     let list;
-    if (loans && loans.length) {
-      list = loans.map((loan, i) => {
+    if (loans && loans.loans && loans.loans.length) {
+      list = loans.loans.map((loan, i) => {
         return (
           <div key={i} className={styles.loan}>
             <div className={styles.info}>
@@ -69,16 +69,34 @@ class LoansPage extends Component {
     }
     return (
       <div>
+        <div>
+            <ul className={styles.pagination}>
+              <li className={Number(loans.currentPage) === 1 ? styles.disabled : ''} >
+                  <a onClick={() => this.props.dispatch(fetchData(1))}>First</a>
+              </li>
+              <li className={Number(loans.currentPage) === 1 ? styles.disabled : ''}>
+                  <a onClick={() => this.props.dispatch(fetchData(Number(loans.currentPage) - 1))}>Previous</a>
+              </li>
+              <li className={Number(loans.currentPage) === Number(loans.totalPages) ? styles.disabled : ''}>
+                  <a onClick={() => this.props.dispatch(fetchData(Number(loans.currentPage) + 1))}>Next</a>
+              </li>
+              <li className={Number(loans.currentPage) === Number(loans.totalPages) ? styles.disabled : ''}>
+                  <a onClick={() => this.props.dispatch(fetchData(Number(loans.totalPages)))}>Last</a>
+              </li>
+            </ul>
+        </div>
+      <div>
         <p>This is a really fancy list of loans</p>
         <hr />
         {list}
+      </div>
       </div>
     );
   }
 }
 
 // Actions required to provide data for this component to render in sever side.
-LoansPage.need = [() => { return fetchData(); }];
+LoansPage.need = [() => { return fetchData(1); }];
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
@@ -88,7 +106,7 @@ function mapStateToProps(state) {
 }
 
 LoansPage.propTypes = {
-  loans: PropTypes.array.isRequired,
+  loans: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 

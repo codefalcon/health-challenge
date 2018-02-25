@@ -13,7 +13,7 @@ const Transaction = mongoose.model('Transaction', transactionSchema);
 
 export default Transaction;
 
-export async function unhealthyList() {
+export async function unhealthyList(pageNumber, itemsPerPage) {
   let list = [];
   try {
     await Transaction
@@ -23,8 +23,8 @@ export async function unhealthyList() {
                   curr_health: { $last: '$health' }, // assuming the insertion is always in increasing order of weeks
                   health: { $push: '$health' } } },
       { $sort: { curr_health: 1 } },
-      { $skip: 0 },
-      { $limit: 10 }])
+      { $skip: (pageNumber * itemsPerPage) - itemsPerPage },
+      { $limit: itemsPerPage }])
     .then(res => { list = res; });
   } catch (err) {
     console.error(err);

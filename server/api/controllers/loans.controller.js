@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Loan from '../../models/loan';
 import { unhealthyList } from '../../models/transaction';
 
 /**
@@ -98,8 +99,12 @@ function getPercentage(number) {
  */
 export async function getLoansFromDb(req, res) {
   const respJson = [];
+  const perPage = 10;
+  const pageNum = req.params.pagenum || 1;
+  const totalRecords = await Loan.count();
+
   try {
-    const loans = await unhealthyList();
+    const loans = await unhealthyList(pageNum,perPage);
     loans.forEach(loanItem => {
       respJson.push(
         {
@@ -111,5 +116,9 @@ export async function getLoansFromDb(req, res) {
   } catch (err) {
     console.log(err);
   }
-  return res.send(respJson);
+  return res.send({
+    loans: respJson,
+    currentPage: pageNum,
+    totalPages: Math.ceil(totalRecords / perPage),
+  });
 }

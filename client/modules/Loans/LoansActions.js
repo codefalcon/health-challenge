@@ -11,9 +11,10 @@ export function gotData(data) {
   };
 }
 
-export function fetchData() {
+export function fetchData(pagenum) {
+  const apiPath = '/loansdb/' + String(pagenum);
   return (dispatch) => {
-    return callApi('/loansdb').then(res => dispatch(gotData(res)));
+    return callApi(apiPath).then(res => dispatch(gotData(res)));
   };
 }
 

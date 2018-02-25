@@ -5,4 +5,16 @@ const loanSchema = new Schema({
   name: { type: 'String', required: true },
 });
 
-export default mongoose.model('Loan', loanSchema);
+const Loan = mongoose.model('Loan', loanSchema);
+
+export default Loan;
+
+export async function count() {
+  let size = 0;
+  try{
+    await Loan.count({},function(err, c) { size = c });
+  } catch (err) {
+    console.error(err);
+  }
+  return size;
+}
