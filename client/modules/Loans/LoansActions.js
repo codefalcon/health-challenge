@@ -13,7 +13,7 @@ export function gotData(data) {
 
 export function fetchData() {
   return (dispatch) => {
-    return callApi('/loans').then(res => dispatch(gotData(res)));
+    return callApi('/loansdb').then(res => dispatch(gotData(res)));
   };
 }
 

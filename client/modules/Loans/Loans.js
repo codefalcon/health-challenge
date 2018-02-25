@@ -25,14 +25,14 @@ class LoansPage extends Component {
 
   getChartInfo(health) {
     return {
-      labels: health.dates.map((d, i) => i + 1),
+      labels: health.map((h, i) => i + 1),
       datasets: [
         {
           label: 'Health',
           fillColor: 'rgba(105,51,147, 0.3)',
           strokeColor: 'rgba(105,51,147, 0.75)',
           pointColor: 'rgba(105,51,147, 1)',
-          data: health.values,
+          data: health,
         },
       ],
     };

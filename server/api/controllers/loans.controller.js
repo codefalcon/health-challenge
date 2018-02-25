@@ -86,6 +86,10 @@ export function getLoans(req, res) {
   ]);
 }
 
+function getPercentage(number) {
+  return Math.round(number * 10000) / 100;
+}
+
 /**
  * Get all Loans from DB
  * @param req
@@ -93,28 +97,19 @@ export function getLoans(req, res) {
  * @returns void
  */
 export async function getLoansFromDb(req, res) {
-  // This is just sample data. Please structure your code in the best way possible. Don't feel obliged to stick to this structure
-  const list = await unhealthyList();
-
-  return res.send(list);
-  /* return res.send([
-    {
-      name: 'Nick Tong\'s Salad Tong Store',
-      currentHealth: 84,
-      health: {
-        dates: [
-        ],
-        values: [],
-      },
-    },
-    {
-      name: 'Paul\'s Pizzeria',
-      currentHealth: 23,
-      health: {
-        dates: [
-        ],
-        values: [],
-      },
-    },
-  ]);*/
+  const respJson = [];
+  try {
+    const loans = await unhealthyList();
+    loans.forEach(loanItem => {
+      respJson.push(
+        {
+          name: loanItem._id.loan_id,
+          currentHealth: getPercentage(loanItem.curr_health),
+          health: loanItem.health.map((val) => getPercentage(val)),
+        });
+    });
+  } catch (err) {
+    console.log(err);
+  }
+  return res.send(respJson);
 }

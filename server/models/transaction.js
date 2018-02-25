@@ -20,9 +20,10 @@ export async function unhealthyList() {
     .aggregate([
       { $group: { _id: { loan_id: '$loan_id' },
                   curr_week: { $max: '$seq_id' },
-                  curr_health: { $last: '$health' },
+                  curr_health: { $last: '$health' }, // assuming the insertion is always in increasing order of weeks
                   health: { $push: '$health' } } },
       { $sort: { curr_health: 1 } },
+      { $skip: 0 },
       { $limit: 10 }])
     .then(res => { list = res; });
   } catch (err) {
