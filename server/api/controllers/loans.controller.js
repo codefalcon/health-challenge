@@ -104,7 +104,7 @@ export async function getLoansFromDb(req, res) {
   const totalRecords = await Loan.count();
 
   try {
-    const loans = await unhealthyList(pageNum,perPage);
+    const loans = await unhealthyList(pageNum, perPage);
     loans.forEach(loanItem => {
       respJson.push(
         {

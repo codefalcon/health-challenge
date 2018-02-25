@@ -11,8 +11,8 @@ export default Loan;
 
 export async function count() {
   let size = 0;
-  try{
-    await Loan.count({},function(err, c) { size = c });
+  try {
+    await Loan.count({}, (err, c) => { size = c; });
   } catch (err) {
     console.error(err);
   }

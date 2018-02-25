@@ -12,7 +12,7 @@ export function gotData(data) {
 }
 
 export function fetchData(pagenum) {
-  const apiPath = '/loansdb/' + String(pagenum);
+  const apiPath = `/loansdb/${pagenum}`;
   return (dispatch) => {
     return callApi(apiPath).then(res => dispatch(gotData(res)));
   };

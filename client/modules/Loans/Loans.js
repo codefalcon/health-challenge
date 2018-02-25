@@ -70,26 +70,26 @@ class LoansPage extends Component {
     return (
       <div>
         <div>
-            <ul className={styles.pagination}>
-              <li className={Number(loans.currentPage) === 1 ? styles.disabled : ''} >
-                  <a onClick={() => this.props.dispatch(fetchData(1))}>First</a>
-              </li>
-              <li className={Number(loans.currentPage) === 1 ? styles.disabled : ''}>
-                  <a onClick={() => this.props.dispatch(fetchData(Number(loans.currentPage) - 1))}>Previous</a>
-              </li>
-              <li className={Number(loans.currentPage) === Number(loans.totalPages) ? styles.disabled : ''}>
-                  <a onClick={() => this.props.dispatch(fetchData(Number(loans.currentPage) + 1))}>Next</a>
-              </li>
-              <li className={Number(loans.currentPage) === Number(loans.totalPages) ? styles.disabled : ''}>
-                  <a onClick={() => this.props.dispatch(fetchData(Number(loans.totalPages)))}>Last</a>
-              </li>
-            </ul>
+          <ul className={styles.pagination}>
+            <li className={Number(loans.currentPage) === 1 ? styles.disabled : ''} >
+              <a onClick={() => this.props.dispatch(fetchData(1))}>First</a>
+            </li>
+            <li className={Number(loans.currentPage) === 1 ? styles.disabled : ''}>
+              <a onClick={() => this.props.dispatch(fetchData(Number(loans.currentPage) - 1))}>Previous</a>
+            </li>
+            <li className={Number(loans.currentPage) === Number(loans.totalPages) ? styles.disabled : ''}>
+              <a onClick={() => this.props.dispatch(fetchData(Number(loans.currentPage) + 1))}>Next</a>
+            </li>
+            <li className={Number(loans.currentPage) === Number(loans.totalPages) ? styles.disabled : ''}>
+              <a onClick={() => this.props.dispatch(fetchData(Number(loans.totalPages)))}>Last</a>
+            </li>
+          </ul>
         </div>
-      <div>
-        <p>This is a really fancy list of loans</p>
-        <hr />
-        {list}
-      </div>
+        <div>
+          <p>This is a really fancy list of loans</p>
+          <hr />
+          {list}
+        </div>
       </div>
     );
   }
