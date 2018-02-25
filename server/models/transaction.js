@@ -11,25 +11,23 @@ const transactionSchema = new Schema({
 
 const Transaction = mongoose.model('Transaction', transactionSchema);
 
-export default Transaction
+export default Transaction;
 
 export async function unhealthyList() {
-  var list = [];
+  let list = [];
   try {
-      await Transaction.aggregate([
-        { $group: { _id: {loan_id: "$loan_id"},
-                    curr_week: {$max: "$seq_id"},
-                    curr_health: {$last: "$health"},
-                    health: {$push: "$health"}}},
-        { $sort: {"curr_health": 1}},
-        { $limit: 10}]).
-        then(function(res){
-        list = res;
-        });
-    }
-    catch(err) {
-      console.error(err);
-    }
+    await Transaction
+    .aggregate([
+      { $group: { _id: { loan_id: '$loan_id' },
+                  curr_week: { $max: '$seq_id' },
+                  curr_health: { $last: '$health' },
+                  health: { $push: '$health' } } },
+      { $sort: { curr_health: 1 } },
+      { $limit: 10 }])
+    .then(res => { list = res; });
+  } catch (err) {
+    console.error(err);
+  }
 
-    return list;
-};
+  return list;
+}
